@@ -1,0 +1,53 @@
+<div class="center">
+  <mat-card style="width: 50%;">
+    <form [formGroup]="productForm" (ngSubmit)="createProduct()" novalidate>
+      <p>
+        <mat-form-field appearance="legacy" class="form-field-full-width">
+          <mat-label>Code:</mat-label>
+          <input matInput formControlName="code" required (keyup)="searchCode()">
+          <mat-error>Veuillez remplir le code</mat-error>
+        </mat-form-field>
+        <span style="color: red; font-size: 10px;" *ngIf="isAlreadyExistCode">Ce code existe déjà</span>
+      </p>
+
+      <p>
+        <mat-form-field appearance="legacy" class="form-field-full-width">
+          <mat-label>Nom:</mat-label>
+          <input matInput formControlName="name" required (keyup)="searchName()">
+          <mat-error>Veuillez remplir le nom</mat-error>
+        </mat-form-field>
+        <span style="color: red; font-size: 10px;" *ngIf="isAlreadyExistName">Ce nom existe déjà</span>
+      </p>
+
+      <p>
+        <mat-form-field appearance="legacy" class="form-field-full-width">
+          <mat-label>Date de validité:</mat-label>
+          <input matInput formControlName="validateDate" [matDatepicker]="picker" [min]="minDate"
+                 (focus)="picker.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>Veuillez remplir le date de validité</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="legacy" class="form-field-full-width">
+          <mat-label>Prix de Vente:</mat-label>
+          <input matInput formControlName="price" required>
+          <span matPrefix>$&nbsp;</span>
+          <mat-error>{{getErrorMessagePrice()}}</mat-error>
+        </mat-form-field>
+      </p>
+      <div>
+        <div>
+          <button mat-button mat-flat-button color="primary"
+                  [disabled]="!productForm.valid || isAlreadyExistCode || isAlreadyExistName">
+            Ajouter
+          </button>
+          &nbsp;&nbsp;
+          <button mat-button mat-flat-button color="warn" class="btn-cancel" (click)="cancel()">Annuler</button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

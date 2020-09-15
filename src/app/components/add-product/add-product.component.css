@@ -1,0 +1,8 @@
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.form-field-full-width {
+  width: 100%;
+}
